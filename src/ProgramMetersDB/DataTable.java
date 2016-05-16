@@ -7,10 +7,11 @@ package ProgramMetersDB;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
- 
+import java.util.TreeMap;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,139 +20,93 @@ import javax.swing.table.TableModel;
  
 public class DataTable extends JFrame {
  
-    static int i = 0;
  
-    public DataTable() {
  
-        super("Тестовое окно");
+    public DataTable(TreeMap<Integer,HashMap> dataSql) {
+ 
+        super("Table data");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- 
-        ArrayList<MyBean> beans = new ArrayList<MyBean>();
- 
-        for (int i = 0; i < 30; i++) {
-            beans.add(new MyBean("Имя " + i, "Размер " + i, "Описание " + i));
-        }
- 
-        TableModel model = new MyTableModel(beans);
+        TableModel model = new MyTableModel(dataSql);
         JTable table = new JTable(model);
- 
         getContentPane().add(new JScrollPane(table));
- 
+        JFrame.setDefaultLookAndFeelDecorated(true);
         setPreferredSize(new Dimension(260, 220));
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
  
-  /*  public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                new DataTable();
-            }
-        });
-    }*/
- 
+  
     
     public class MyTableModel implements TableModel {
  
         private Set<TableModelListener> listeners = new HashSet<TableModelListener>();
  
-        private List<MyBean> beans;
+        private TreeMap<Integer,HashMap> beans;
  
-        public MyTableModel(List<MyBean> beans) {
+        public MyTableModel(TreeMap<Integer,HashMap> beans) {
             this.beans = beans;
         }
  
+        @Override
         public void addTableModelListener(TableModelListener listener) {
             listeners.add(listener);
         }
  
+        @Override
         public Class<?> getColumnClass(int columnIndex) {
             return String.class;
         }
  
+        @Override
         public int getColumnCount() {
-            return 3;
+            return 8;
         }
  
+        @Override
         public String getColumnName(int columnIndex) {
             switch (columnIndex) {
-            case 0:
-                return "Имя";
-            case 1:
-                return "Размер";
-            case 2:
-                return "Описание";
-            }
+                     case 0:return  WriteExel.DATA_PROTOCOL;
+                     case 1:return  WriteExel.POTREBITEL;
+                     case 2:return  WriteExel.ZAVODSK_NUBBER;
+                     case 3:return  WriteExel.TIP_COUNTER;
+                     case 4:return  WriteExel.ZNAC_COUNTER;
+                     case 5:return  WriteExel.YEAR_COUNTER;
+                     case 6:return  WriteExel.PLACE;
+                     case 7:return  WriteExel.SEAL;
+                     case 8:return  WriteExel.ANNATATION;  
+             }
             return "";
         }
  
+        @Override
         public int getRowCount() {
-            return beans.size();
+           return beans.size();
         }
  
+        @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            MyBean bean = beans.get(rowIndex);
-            switch (columnIndex) {
-            case 0:
-                return bean.getName();
-            case 1:
-                return bean.getSize();
-            case 2:
-                return bean.getDescription();
-            }
-            return "";
+                HashMap getVal=new HashMap<>();
+                getVal=beans.get(rowIndex);
+                return getVal.get(columnIndex);
+           
         }
  
+        @Override
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return false;
         }
  
+        @Override
         public void removeTableModelListener(TableModelListener listener) {
             listeners.remove(listener);
         }
  
+        @Override
         public void setValueAt(Object value, int rowIndex, int columnIndex) {
  
         }
  
     }
- 
-    public class MyBean {
- 
-        private String name;
-        private String size;
-        private String description;
- 
-        public MyBean(String name, String size, String description) {
-            this.setName(name);
-            this.setSize(size);
-            this.setDescription(description);
-        }
- 
-        public void setName(String name) {
-            this.name = name;
-        }
- 
-        public String getName() {
-            return name;
-        }
- 
-        public void setSize(String size) {
-            this.size = size;
-        }
- 
-        public String getSize() {
-            return size;
-        }
- 
-        public void setDescription(String description) {
-            this.description = description;
-        }
- 
-        public String getDescription() {
-            return description;
-        }
-    }
 }
+  

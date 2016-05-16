@@ -12,6 +12,8 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.table.TableModel;
 
 
 class MyCustomFilter extends javax.swing.filechooser.FileFilter {
@@ -57,6 +59,9 @@ public class Frame extends javax.swing.JFrame {
         textArea = new javax.swing.JTextPane();
         plombOtchet = new javax.swing.JButton();
         createSqlButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jScrollDataTable = new javax.swing.JScrollPane();
+        TableData = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -215,11 +220,8 @@ public class Frame extends javax.swing.JFrame {
                 formFocusLost(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setViewportView(textArea);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 410, 390));
 
         plombOtchet.setText("Отчет по  пломбам");
         plombOtchet.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +229,6 @@ public class Frame extends javax.swing.JFrame {
                 plombOtchetActionPerformed(evt);
             }
         });
-        getContentPane().add(plombOtchet, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, 150, 30));
 
         createSqlButton.setText("Отчет в MySql");
         createSqlButton.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +236,26 @@ public class Frame extends javax.swing.JFrame {
                 createSqlButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(createSqlButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 150, 30));
+
+        jButton1.setText("Создать  запрос");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        TableData.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollDataTable.setViewportView(TableData);
 
         jMenu1.setText("File");
 
@@ -263,6 +283,45 @@ public class Frame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(plombOtchet, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
+                        .addComponent(createSqlButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollDataTable, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(createSqlButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(plombOtchet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(1, 1, 1)
+                .addComponent(jButton1)
+                .addGap(35, 35, 35)
+                .addComponent(jScrollDataTable, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         bindingGroup.bind();
 
@@ -357,6 +416,17 @@ public class Frame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_setVisible
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+                 new DataTable (MySql.sqlRead(MySql.sqlConection("", "", "")));
+                } catch (SQLException ex) {
+                    Logger.getLogger(JavaWordDoc.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
   
     public static void main(String args[]) {
        
@@ -364,10 +434,12 @@ public class Frame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser FileChooser;
+    private javax.swing.JTable TableData;
     private javax.swing.JButton cancelSqlButton;
     public javax.swing.JDialog conError;
     private javax.swing.JButton createSqlButton;
     private javax.swing.JButton errorOk;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -378,6 +450,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JScrollPane jScrollDataTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JButton okSqlButton;

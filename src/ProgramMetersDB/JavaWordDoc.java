@@ -14,7 +14,7 @@ public class JavaWordDoc {
     
     public static void main(String[] args) throws IOException {
         try {
-        //MySql.sql("sgeg","sgsg","hfdh");
+        
         } catch (Exception ex) {
             Logger.getLogger(JavaWordDoc.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -22,8 +22,7 @@ public class JavaWordDoc {
             @Override
             public void run() {
                 new Frame().setVisible(true);
-              
-                new DataTable();
+                
             }
      });
     }

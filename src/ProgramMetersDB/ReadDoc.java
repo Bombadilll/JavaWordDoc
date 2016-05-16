@@ -85,38 +85,6 @@ for (int i = 0; i < range.numParagraphs(); i++) {
         }      
         
      
-        
-        
-        
-        
-        
-    if (!par.isInTable()) {
-       // System.out.println("" + par.text());
-        
-    } else { /*System.out.println("Зашел "+t++);
-        System.out.println(range.getTable(par));
-        Table table = range.getTable(par);
-        
-       for (int rowIdx = 0; rowIdx <table.numRows(); rowIdx++) {
-          TableRow row = table.getRow(rowIdx);
-          for (int colIdx = 0; colIdx <row.numCells(); colIdx++) {
-             TableCell cell = row.getCell(colIdx);
-             System.out.print("|" + cell.getParagraph(0).text());
-              
-              i++;
-          }
-         
-          System.out.println();
-          i++;
-         
-       
-       }
-    
-        System.out.println("конец"); 
-      
-    
-       */
-    }
    
 }
         }catch(IOException e){
